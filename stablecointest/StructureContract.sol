@@ -50,13 +50,15 @@ contract StructureContract {
 	}
 
 	function reconstituteTest() {
-		oracleTest = 3; //let's say the price of underlying has changed such that now the appropriate strike price is 3
+		uint oracleTest = 3; //let's say the price of underlying has changed such that now the appropriate strike price is 3
+		uint maxIndex;
 
 		for(uint i = 0; i < structureArray.length(); i++) {
+			maxIndex = length(structureArray[i]) - 1;
+			if(structureArray[i][maxIndex] > oracleTest) {
 			//create the call spread then
-			
-			if(structureArray[i][0] > 3) {
-			structureArray[i][0] = 3; //set short put strike to 3 in all arrays
+			structureArray[i][maxIndex]
+			structureArray[i][maxIndex + 1] = oracleTest; //set short put strike to oracleTest in all arrays
 			}
 		}
 
