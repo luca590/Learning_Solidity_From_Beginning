@@ -1,5 +1,8 @@
 /**
 * Contract for storing structures to create stablecoin
+* NOTES:
+* Array of strikes should be stored backwards - short put at index = length - 1 and long call at index = 0
+* because whne reconstituting, may need to add call spread
 */
 
 pragma solidity ^0.4.19;
@@ -26,11 +29,11 @@ contract StructureContract {
 	}
 
 	function addStructureTest() public return(uint256) {
-		uint256[] memory test1 = [5, 10, 20, 100]
+		uint256[] memory test1 = [100, 20, 10, 5]
 		structureArray[structureId] = test1; //create structure array
 		structureId += 1;
 
-		uint256[] memory test2 = [4, 15, 33, 110]
+		uint256[] memory test2 = [110, 33, 15, 4]
 		structureArray[structureId] = test2; //create structure array
 		structureId += 1;
 
@@ -51,8 +54,10 @@ contract StructureContract {
 
 		for(uint i = 0; i < structureArray.length(); i++) {
 			//create the call spread then
-			//...
+			
+			if(structureArray[i][0] > 3) {
 			structureArray[i][0] = 3; //set short put strike to 3 in all arrays
+			}
 		}
 
 	}
